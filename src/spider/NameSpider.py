@@ -15,9 +15,9 @@ def getNamesBatch(count=500):
     return data
 
 
-def print_first_names(names):
+def print_first_names(name_dicts):
     with open(names_dictionary_file, 'w') as file:
-        for name in names:
+        for name in name_dicts:
             if name['name'].strip():
                 file.write(name['name'] + '\n')
 

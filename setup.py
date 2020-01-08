@@ -14,5 +14,6 @@ setup(
     license='',
     author='Philip Buhr',
     author_email='philip.buhr@buhrwerk.de',
-    description='For generating specific CSVs for testing data piplines'
+    description='For generating specific CSVs for testing data piplines',
+    install_requires=['pandas', 'requests', 'pytest']
 )

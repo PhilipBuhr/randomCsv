@@ -1,5 +1,3 @@
-from pandas import Series
-
 from random_csv.Column import Column
 
 
