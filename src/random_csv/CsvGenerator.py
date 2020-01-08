@@ -21,8 +21,7 @@ class CsvGenerator:
         for column in self.columns:
             data[column.name] = column.generate_entries(count)
         for instruction in self.instructions:
-            columns = [data[source] for source in instruction.source_columns]
-            data[instruction.column_name] = instruction.function(*columns)
+            data[instruction.column_name] = data.apply(instruction.create_row_function(), axis=1)
         return data
 
     def create_csv(self, count, file_name, delimiter=','):
@@ -35,3 +34,14 @@ class Instruction:
         self.column_name = column_name
         self.source_columns = source_columns
         self.function = function
+
+    def create_row_function(self):
+        def row_function(row):
+            arguments = [row[source] for source in self.source_columns]
+            return self.function(*arguments)
+
+        return row_function
+
+
+def __extract_arguments(row, source_columns):
+    return [row[column] for column in source_columns]
