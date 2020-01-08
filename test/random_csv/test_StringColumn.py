@@ -1,4 +1,4 @@
-from src.random_csv.StringColumn import StringColumn
+from random_csv.StringColumn import StringColumn
 
 
 def test_fills_column_with_names_from_dictionary():

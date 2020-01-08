@@ -1,6 +1,6 @@
 import random
 
-from src.random_csv.ClassColumn import ClassColumn
+from random_csv.ClassColumn import ClassColumn
 
 
 def mock_choice(sequence):

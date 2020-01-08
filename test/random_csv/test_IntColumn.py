@@ -1,6 +1,6 @@
 from pandas import Series
 
-from src.random_csv.IntColumn import IntColumn
+from random_csv.IntColumn import IntColumn
 
 
 def test_generates_incrementing_integer_column():

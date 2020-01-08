@@ -1,10 +1,7 @@
-import os
-
 from pandas import DataFrame
 
-from definitions import OUT_DIR
-from src.random_csv.Column import Column
-from src.random_csv.FileWriter import write
+from random_csv.Column import Column
+from random_csv.FileWriter import write
 
 
 class CsvGenerator:

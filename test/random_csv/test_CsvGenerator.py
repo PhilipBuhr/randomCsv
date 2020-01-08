@@ -4,10 +4,10 @@ import pandas
 import pytest
 
 from definitions import OUT_DIR
-from src.random_csv.ClassColumn import ClassColumn
-from src.random_csv.CsvGenerator import CsvGenerator
-from src.random_csv.IntColumn import IntColumn
-from src.random_csv.StringColumn import StringColumn
+from random_csv.ClassColumn import ClassColumn
+from random_csv.CsvGenerator import CsvGenerator
+from random_csv.IntColumn import IntColumn
+from random_csv.StringColumn import StringColumn
 import random
 
 
@@ -43,11 +43,11 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
         assert classes.at[i] == "A"
 
     calculated = data_frame['Calculated']
-    assert calculated[0] == ''
-    assert calculated[1] == 'A'
-    assert calculated[2] == 'AA'
-    assert calculated[3] == 'AAA'
-    assert calculated[4] == 'AAAA'
+    assert calculated[0] == 'A'
+    assert calculated[1] == 'AA'
+    assert calculated[2] == 'AAA'
+    assert calculated[3] == 'AAAA'
+    assert calculated[4] == 'AAAAA'
 
 
 def test_prints_csv(generator):

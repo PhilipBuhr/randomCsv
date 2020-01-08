@@ -1,6 +1,6 @@
 from pandas import Series
 
-from src.random_csv.Column import Column
+from random_csv.Column import Column
 
 
 class IntColumn(Column):

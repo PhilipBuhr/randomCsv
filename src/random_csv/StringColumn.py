@@ -1,7 +1,7 @@
 import os
 
 from definitions import DICTIONARY_DIR
-from src.random_csv.Column import Column
+from random_csv.Column import Column
 
 
 class StringColumn(Column):
