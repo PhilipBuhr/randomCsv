@@ -1,7 +1,7 @@
 from pandas import DataFrame
 
 from random_csv.Column import Column
-from random_csv.FileWriter import write
+from random_csv.FileUtils import write
 
 
 class CsvGenerator:

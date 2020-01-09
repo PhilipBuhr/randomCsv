@@ -1,7 +1,9 @@
 import os
 
-from definitions import DICTIONARY_DIR
 from random_csv.Column import Column
+from random_csv.FileUtils import read_line_looping
+
+from definitions import DICTIONARY_DIR
 
 
 class StringColumn(Column):
@@ -11,5 +13,4 @@ class StringColumn(Column):
         self.dictionary = os.path.join(DICTIONARY_DIR, dictionary)
 
     def create_data(self, count):
-        with open(self.dictionary, 'r') as file:
-            return [file.readline().strip() for _ in range(count)]
+        return read_line_looping(self.dictionary, count)

@@ -1,14 +1,14 @@
 import os
+import random
 
 import pandas
 import pytest
-
-from definitions import OUT_DIR
 from random_csv.ClassColumn import ClassColumn
 from random_csv.CsvGenerator import CsvGenerator
 from random_csv.IntColumn import IntColumn
 from random_csv.StringColumn import StringColumn
-import random
+
+from definitions import OUT_DIR
 
 
 def mock_choice(sequence):
@@ -19,10 +19,10 @@ def mock_choice(sequence):
 def generator(monkeypatch):
     monkeypatch.setattr(random, 'choice', mock_choice)
     generator = CsvGenerator()
-    generator.add_column(IntColumn("Integers"))
-    generator.add_column(StringColumn("Names"))
-    generator.add_column(ClassColumn("Class", ["A", "B", "C"]))
-    generator.calculate_column("Calculated", ["Integers", "Class"], lambda number, cls: cls*(number + 1))
+    generator.add_column(IntColumn('Integers'))
+    generator.add_column(StringColumn('Names'))
+    generator.add_column(ClassColumn('Class', ['A', 'B', 'C']))
+    generator.calculate_column('Calculated', ['Integers', 'Class'], lambda number, cls: cls*(number + 1))
     return generator
 
 
@@ -40,7 +40,7 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
 
     classes = data_frame['Class']
     for i in range(5):
-        assert classes.at[i] == "A"
+        assert classes.at[i] == 'A'
 
     calculated = data_frame['Calculated']
     assert calculated[0] == 'A'
@@ -51,7 +51,7 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
 
 
 def test_prints_csv(generator):
-    generator.create_csv(5, "test.csv")
+    generator.create_csv(5, 'test.csv')
 
-    csv = pandas.read_csv(os.path.join(OUT_DIR, "test.csv"))
+    csv = pandas.read_csv(os.path.join(OUT_DIR, 'test.csv'))
     assert csv.equals(generator.generate_data_frame(5))
