@@ -5,6 +5,7 @@ import pytest
 from random_csv.ClassColumn import ClassColumn
 from random_csv.CsvGenerator import CsvGenerator
 from random_csv.IntColumn import IntColumn
+from random_csv.RandomNumberColumn import RandomNumberColumn
 from random_csv.StringColumn import StringColumn
 
 from definitions import OUT_DIR
@@ -17,6 +18,7 @@ def generator(monkeypatch):
     generator.add_column(StringColumn('Names'))
     generator.add_column(ClassColumn('Class', ['A', 'B', 'C'], random_state=42))
     generator.calculate_column('Calculated', ['Integers', 'Class'], lambda number, cls: cls * number)
+    generator.add_column(RandomNumberColumn('Random', low=5, high=10, digits=1, random_state=42))
     return generator
 
 
@@ -45,6 +47,13 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
     assert calculated[2] == 'CCC'
     assert calculated[3] == 'CCCC'
     assert calculated[4] == 'AAAAA'
+
+    random = data_frame['Random']
+    assert random[0] == 6.9
+    assert random[1] == 9.8
+    assert random[2] == 8.7
+    assert random[3] == 8.0
+    assert random[4] == 5.8
 
 
 def test_prints_csv(generator):
