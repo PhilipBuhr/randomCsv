@@ -1,8 +1,8 @@
 from glob import glob
 from os.path import splitext, basename
 
-from setuptools import setup
 from setuptools import find_packages
+from setuptools import setup
 
 setup(
     name='randomCsv',
@@ -15,5 +15,5 @@ setup(
     author='Philip Buhr',
     author_email='philip.buhr@buhrwerk.de',
     description='For generating specific CSVs for testing data piplines',
-    install_requires=['pandas', 'requests', 'pytest']
+    install_requires=['pandas', 'requests', 'pytest', 'numpy']
 )

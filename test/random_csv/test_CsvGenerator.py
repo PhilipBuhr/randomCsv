@@ -1,5 +1,4 @@
 import os
-import random
 
 import pandas
 import pytest
@@ -11,18 +10,13 @@ from random_csv.StringColumn import StringColumn
 from definitions import OUT_DIR
 
 
-def mock_choice(sequence):
-    return sequence[0]
-
-
 @pytest.fixture
 def generator(monkeypatch):
-    monkeypatch.setattr(random, 'choice', mock_choice)
     generator = CsvGenerator()
-    generator.add_column(IntColumn('Integers'))
+    generator.add_column(IntColumn('Integers', start=1))
     generator.add_column(StringColumn('Names'))
-    generator.add_column(ClassColumn('Class', ['A', 'B', 'C']))
-    generator.calculate_column('Calculated', ['Integers', 'Class'], lambda number, cls: cls*(number + 1))
+    generator.add_column(ClassColumn('Class', ['A', 'B', 'C'], random_state=42))
+    generator.calculate_column('Calculated', ['Integers', 'Class'], lambda number, cls: cls * number)
     return generator
 
 
@@ -31,7 +25,7 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
 
     integers = data_frame['Integers']
     for i in range(5):
-        assert integers.at[i] == i
+        assert integers.at[i] == i + 1
 
     names = data_frame['Names']
     assert names.at[0] == 'Hannes'
@@ -39,14 +33,17 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
     assert names.at[2] == 'İbrahim'
 
     classes = data_frame['Class']
-    for i in range(5):
-        assert classes.at[i] == 'A'
+    assert classes.at[0] == 'C'
+    assert classes.at[1] == 'A'
+    assert classes.at[2] == 'C'
+    assert classes.at[3] == 'C'
+    assert classes.at[4] == 'A'
 
     calculated = data_frame['Calculated']
-    assert calculated[0] == 'A'
+    assert calculated[0] == 'C'
     assert calculated[1] == 'AA'
-    assert calculated[2] == 'AAA'
-    assert calculated[3] == 'AAAA'
+    assert calculated[2] == 'CCC'
+    assert calculated[3] == 'CCCC'
     assert calculated[4] == 'AAAAA'
 
 
