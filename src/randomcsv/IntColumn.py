@@ -1,5 +1,5 @@
 import numpy as np
-from random_csv.Column import Column
+from randomcsv.Column import Column
 
 
 class IntColumn(Column):
@@ -19,5 +19,5 @@ class IntColumn(Column):
         super().__init__(name, dtype=dtype, null_ratio=null_ratio, null_element=null_element)
         self.start = start
 
-    def create_data(self, count):
+    def _create_data(self, count):
         return range(self.start, self.start + count)

@@ -1,5 +1,5 @@
 import numpy as np
-from random_csv.IntColumn import IntColumn
+from randomcsv.IntColumn import IntColumn
 
 
 def test_generates_incrementing_integer_column():

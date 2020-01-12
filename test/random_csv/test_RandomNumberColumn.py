@@ -1,11 +1,9 @@
-from random_csv.RandomNumberColumn import RandomNumberColumn
-from math import floor
+from randomcsv.RandomNumberColumn import RandomNumberColumn
 
 
 def test_fills_column_with_random_numbers():
     column = RandomNumberColumn('Numbers', low=10, high=20, digits=1, random_state=42)
     series = column.generate_entries(3)
-    print(series)
     assert series.at[0] == 13.7
     assert series.at[1] == 19.5
     assert series.at[2] == 17.3

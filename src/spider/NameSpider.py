@@ -2,10 +2,9 @@ import json
 import os
 
 import requests
+from pkg_resources import resource_filename
 
-from definitions import ROOT_DIR
-
-names_dictionary_file = os.path.join(ROOT_DIR, 'resources/dictionaries/firstNames.txt')
+names_dictionary_file = os.path.join(resource_filename('randomcsv.resources.dictionaries', ''), 'firstNames.txt')
 api_url = 'https://uinames.com/api/'
 
 

@@ -1,9 +1,10 @@
 import os
 
-from random_csv.Column import Column
-from random_csv.FileUtils import read_line_looping
+from pkg_resources import resource_filename
+from randomcsv.Column import Column
+from randomcsv.FileUtils import read_line_looping
 
-from definitions import DICTIONARY_DIR
+DICTIONARY_DIR = resource_filename('randomcsv.resources.dictionaries', '')
 
 
 class StringColumn(Column):
@@ -14,5 +15,5 @@ class StringColumn(Column):
         self.null_ratio = null_ratio
         self.null_element = null_element
 
-    def create_data(self, count):
+    def _create_data(self, count):
         return read_line_looping(self.dictionary, count)

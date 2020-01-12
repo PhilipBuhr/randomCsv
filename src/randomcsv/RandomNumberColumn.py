@@ -1,14 +1,14 @@
 import numpy as np
 from numpy.random import RandomState
-from random_csv.Column import Column
+from randomcsv.Column import Column
 
 
 class RandomNumberColumn(Column):
     def __init__(self, name, low=0, high=1, digits=None, dtype=None, null_ratio=0, null_element=np.NAN,
                  random_state=None):
         """
-        Creates a Column with random float numbers between :param low (included) and :param high (excluded)
-        If a value for :param digits is provided, the column values will be rounded to the number of digits
+        Creates a Column with random float numbers between low (included) and high (excluded)
+        If a value for digits is provided, the column values will be rounded to the number of digits
 
         Parameters
         ----------
@@ -26,7 +26,7 @@ class RandomNumberColumn(Column):
         self.high = high
         self.digits = digits
 
-    def create_data(self, count):
+    def _create_data(self, count):
         return [self.map_to_range(rnd) for rnd in RandomState(seed=self.random_state).random(count)]
 
     def map_to_range(self, rnd):

@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from random_csv.StringColumn import StringColumn
+from randomcsv.StringColumn import StringColumn
 
 
 def mock_join(_, dictionary):

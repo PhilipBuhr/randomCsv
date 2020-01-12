@@ -2,21 +2,20 @@ import os
 
 import pandas
 import pytest
-from random_csv.ClassColumn import ClassColumn
-from random_csv.CsvGenerator import CsvGenerator
-from random_csv.IntColumn import IntColumn
-from random_csv.RandomNumberColumn import RandomNumberColumn
-from random_csv.StringColumn import StringColumn
-
-from definitions import OUT_DIR
+from randomcsv.CategoryColumn import CategoryColumn
+from randomcsv.CsvGenerator import CsvGenerator
+from randomcsv.IntColumn import IntColumn
+from randomcsv.RandomNumberColumn import RandomNumberColumn
+from randomcsv.StringColumn import StringColumn
 
 
 @pytest.fixture
-def generator(monkeypatch):
-    generator = CsvGenerator()
+def generator(monkeypatch, tmpdir):
+    output_dir = tmpdir.mkdir('output')
+    generator = CsvGenerator(out_dir=output_dir)
     generator.add_column(IntColumn('Integers', start=1))
     generator.add_column(StringColumn('Names'))
-    generator.add_column(ClassColumn('Class', ['A', 'B', 'C'], random_state=42))
+    generator.add_column(CategoryColumn('Class', ['A', 'B', 'C'], random_state=42))
     generator.calculate_column('Calculated', ['Integers', 'Class'], lambda number, cls: cls * number)
     generator.add_column(RandomNumberColumn('Random', low=5, high=10, digits=1, random_state=42))
     return generator
@@ -56,8 +55,11 @@ def test_should_fill_data_frame_with_data_from_columns(generator):
     assert random[4] == 5.8
 
 
-def test_prints_csv(generator):
+def test_prints_csv(generator, tmpdir):
+    file = os.path.join(tmpdir.dirname, tmpdir.basename, 'output/test.csv')
     generator.create_csv(5, 'test.csv')
 
-    csv = pandas.read_csv(os.path.join(OUT_DIR, 'test.csv'))
-    assert csv.equals(generator.generate_data_frame(5))
+    csv = pandas.read_csv(file)
+    csv['Class'] = csv['Class'].astype('category')
+    data_frame = generator.generate_data_frame(5)
+    assert csv.equals(data_frame)
