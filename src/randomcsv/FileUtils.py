@@ -11,12 +11,21 @@ def write(file_name, content):
 def read_line_looping(file_name, count):
     i = 0
     lines = []
-    with open(file_name, 'r') as file:
+    file = open(file_name, 'r')
+    line = file.readline()
+    if line == '':
+        raise EmptyFileError(f'Error: Dictionary {file_name} seems to be empty')
+    while i < count:
+        lines.append(line.strip())
+        i += 1
         line = file.readline()
-        while i < count and line != '':
-            lines.append(line.strip())
-            i += 1
+        if line == '':
+            file.close()
+            file = open(file_name, 'r')
             line = file.readline()
-    if i < count:
-        lines = lines + read_line_looping(file_name, count - i)
+    file.close()
     return lines
+
+
+class EmptyFileError(Exception):
+    pass
