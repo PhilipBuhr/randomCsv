@@ -78,6 +78,14 @@ class CsvGenerator:
         self.instructions.append(Instruction(column_name, source_columns, function))
 
     def generate_data_frame(self, count):
+        """
+        Generates a pandas DataFrame with the columns, which have been added, and <count> rows.
+
+        Parameters
+        ----------
+        :param count: Number of rows which will be generated
+        :return: A DataFrame with 'count' rows
+        """
         data = DataFrame()
         for column in self.columns:
             data[column.name] = column.generate_entries(count)
@@ -86,6 +94,15 @@ class CsvGenerator:
         return data
 
     def create_csv(self, count, file_name, delimiter=','):
+        """
+        Generates the configured DataFrame with <count> rows and writes it to a file with path '<out_dir>/<file_name>'
+
+        Parameters
+        ----------
+        :param count: Number of rows which will be generated
+        :param file_name: File name of generated CSV file. Path can be specified. Example 'output/date.csv'
+        :param delimiter: Character, which separates values (default ',')
+        """
         data_frame: DataFrame = self.generate_data_frame(count)
         file_path = os.path.join(self.out_dir, file_name)
         write(file_path, data_frame.to_csv(sep=delimiter, index=False))

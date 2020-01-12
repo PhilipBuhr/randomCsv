@@ -11,9 +11,7 @@ if __name__ == '__main__':
     generator.calculate_column("Calculated", ["Integers", "Categories"],
                                lambda number, category: f'{number} {category}')
 
-    print(generator.generate_data_frame(2))
-
     start = time.time()
-    count = 2
+    count = 1000
     generator.create_csv(count, 'example.csv')
     print(f'Finished, time elapsed: {time.time() - start} for {count}')

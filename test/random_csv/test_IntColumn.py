@@ -26,7 +26,7 @@ def test_default_null_value_is_NaN():
 
 
 def test_can_overwrite_null_element():
-    column = IntColumn('Integers', null_ratio=1, null_element=0, start=5)
+    column = IntColumn('Integers', start=5, null_ratio=1, null_element=0)
     series = column.generate_entries(3)
     assert series.at[0] == 0
     assert series.at[1] == 0

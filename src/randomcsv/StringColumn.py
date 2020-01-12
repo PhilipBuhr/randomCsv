@@ -8,12 +8,25 @@ DICTIONARY_DIR = resource_filename('randomcsv.resources.dictionaries', '')
 
 
 class StringColumn(Column):
+    """
+    A Column with text values.
 
-    def __init__(self, name, dictionary='firstNames.txt', null_ratio=0, null_element=''):
-        super().__init__(name)
+    Per default, will be filled with first names from a dictionary.
+    Up to about 500 different values, non-latin characters.
+
+    Example
+    ------
+    >>> column = StringColumn('MyStrings')
+    >>> column.generate_entries(2)
+    0     Hannes
+    1    Charlos
+    dtype: object
+    """
+
+    def __init__(self, name, dictionary='firstNames.txt', dtype='object', null_ratio=0, null_element='',
+                 random_state=None):
+        super().__init__(name, dtype=dtype, null_ratio=null_ratio, null_element=null_element, random_state=random_state)
         self.dictionary = os.path.join(DICTIONARY_DIR, dictionary)
-        self.null_ratio = null_ratio
-        self.null_element = null_element
 
     def _create_data(self, count):
         return read_line_looping(self.dictionary, count)
