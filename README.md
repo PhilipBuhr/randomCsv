@@ -22,7 +22,6 @@ generator.add_column(RandomNumberColumn("Random", low=10, high=20, digits=2))
 # adds a column, values are randomly picked from the provided list
 generator.add_column(CategoryColumn("Categories", [1, 2, 3, 4]))
 
-
 # adds a column with name "Calculated", based on Columns Integers and Class
 # the arguments of the given function must match order and type of the values of the columns
 generator.calculate_column("Calculated", ["Integers", "Categories"],
