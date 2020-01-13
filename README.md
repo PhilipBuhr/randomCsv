@@ -3,6 +3,12 @@
 This library let's you generate CSV files with a specific structure, but 
 random data. These CSVs can be used as test data when developing data pipelines.
 
+## Install
+
+```shell script
+pip install randomcsv
+```
+
 ## Usage
 ```python
 from randomcsv import *
@@ -14,7 +20,8 @@ generator = CsvGenerator()
 generator.add_column(IntColumn("Integers", start=100))  
 
 # adds a column filled with strings, currently first names from the firstNames.txt dictionary
-generator.add_column(StringColumn("Names"))
+# All column types can simulate missing data. In this example, 10% of the elements are replaced by N/A
+generator.add_column(StringColumn("Names", null_ratio=0.1, null_element='N/A'))
 
 # add a column filled with random float values between 10 and 20 rounded to 2 digits.
 generator.add_column(RandomNumberColumn("Random", low=10, high=20, digits=2))
